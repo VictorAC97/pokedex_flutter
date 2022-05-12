@@ -4,9 +4,8 @@ import 'package:flutter_pokedex_2022/features/pokedex/screens/details/container/
 import 'package:flutter_pokedex_2022/features/pokedex/screens/home/container/home_container.dart';
 
 class PokedexRoute extends StatelessWidget {
-  final PokemonRepository repository;
   const PokedexRoute({Key? key, required this.repository}) : super(key: key);
-
+  final PokemonRepository repository;
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -27,6 +26,7 @@ class PokedexRoute extends StatelessWidget {
             builder: (context) => DetailContainer(
               repository: repository,
               arguments: (settings.arguments as DetailArguments),
+              onBack: () => Navigator.of(context).pop(),
             ),
           );
         }

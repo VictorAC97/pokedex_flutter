@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pokedex_2022/common/models/pokemon.dart';
+import 'package:flutter_pokedex_2022/features/pokedex/screens/details/pages/widgets/detail_app_bar_widget.dart';
+import 'package:flutter_pokedex_2022/features/pokedex/screens/details/pages/widgets/detail_list_widget.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key, required this.pokemon, required this.list})
+  const DetailPage(
+      {Key? key,
+      required this.pokemon,
+      required this.list,
+      required this.onBack,
+      required this.controller,
+      required this.onChangedPokemon})
       : super(key: key);
   final Pokemon pokemon;
   final List<Pokemon> list;
-
+  final VoidCallback onBack;
+  final PageController controller;
+  final ValueChanged<Pokemon> onChangedPokemon;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(pokemon.name),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 400,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: ListView(
-                  children: list
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(e.name),
-                          ))
-                      .toList(),
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
-            )
-          ],
-        ),
+      body: Stack(
+        children: [
+          DetailAppBarWidget(
+            pokemon: pokemon,
+            onBack: onBack,
+          ),
+          DetailListWidget(
+            pokemon: pokemon,
+            list: list,
+            controller: controller,
+            onChangedPokemon: onChangedPokemon,
+          ),
+        ],
       ),
     );
   }
