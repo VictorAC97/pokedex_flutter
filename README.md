@@ -1,5 +1,10 @@
 # flutter_pokedex_2022
 
+
+<img src="https://user-images.githubusercontent.com/26288178/168713247-73505378-9aa1-417f-ae58-3ac57f0e2aa9.png" width="432" height="768"/>
+<img src="https://user-images.githubusercontent.com/26288178/168713262-eef8c45b-73cc-442e-be26-e78707442e20.gif" width="432" height="768"/>
+
+
 A new Flutter project.
 
 ## Getting Started
