@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pokedex_2022/common/models/pokemon.dart';
+import 'package:flutter_pokedex_2022/features/pokedex/screens/details/pages/widgets/detail_item_list_widget.dart';
 
 class DetailListWidget extends StatelessWidget {
   const DetailListWidget(
@@ -15,15 +16,10 @@ class DetailListWidget extends StatelessWidget {
   final ValueChanged<Pokemon> onChangedPokemon;
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 80,
-      left: 0,
-      right: 0,
-      height: 350,
+    return SliverToBoxAdapter(
       child: Container(
         color: pokemon.baseColor,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -53,7 +49,7 @@ class DetailListWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 200,
+              height: 300,
               width: double.infinity,
               child: PageView(
                 onPageChanged: (index) {
@@ -63,25 +59,9 @@ class DetailListWidget extends StatelessWidget {
                 children: list.map(
                   (e) {
                     bool diff = e.name != pokemon.name;
-                    return AnimatedOpacity(
-                      duration: Duration(milliseconds: 200),
-                      opacity: diff ? 0.4 : 1.0,
-                      child: TweenAnimationBuilder<double>(
-                          duration: Duration(milliseconds: 200),
-                          curve: Curves.easeIn,
-                          tween: Tween<double>(
-                              end: diff ? 100 : 200, begin: diff ? 200 : 100),
-                          builder: (context, value, child) {
-                            return Center(
-                              child: Image.network(
-                                e.image,
-                                width: value,
-                                fit: BoxFit.contain,
-                                color:
-                                    diff ? Colors.black.withOpacity(0.4) : null,
-                              ),
-                            );
-                          }),
+                    return DetailItemListWidget(
+                      isDiff: diff,
+                      pokemon: e,
                     );
                   },
                 ).toList(),
